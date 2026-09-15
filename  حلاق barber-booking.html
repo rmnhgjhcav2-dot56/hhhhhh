@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صالون الأصالة — حجز موعد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2530;
+    --ink-2:#2A3542;
+    --paper:#F3EEE4;
+    --paper-2:#EAE2D2;
+    --brass:#C6A15B;
+    --brass-2:#DEC080;
+    --burgundy:#7A2E2E;
+    --burgundy-2:#9C3D3D;
+    --line:#D8CFBC;
+    --line-dark:#3A4451;
+    --text-soft:#6B6255;
+    --good:#3F6B4E;
+    --bad:#9C3D3D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Cairo',sans-serif;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  h1,h2,h3,.display{
+    font-family:'Tajawal',sans-serif;
+    margin:0;
+  }
+  .stripe{
+    height:10px;
+    background:repeating-linear-gradient(-45deg,
+      var(--burgundy) 0 18px,
+      var(--paper) 18px 26px,
+      var(--ink) 26px 44px,
+      var(--paper) 44px 52px);
+    background-size:220% 100%;
+    animation:slide 9s linear infinite;
+  }
+  @keyframes slide{ from{background-position:0 0;} to{background-position:-220px 0;} }
+  @media (prefers-reduced-motion:reduce){ .stripe{animation:none;} }
+
+  header.top{
+    background:var(--ink);
+    color:var(--paper);
+    padding:22px 20px 26px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:960px;
+    margin:0 auto;
+  }
+  .brand-name{
+    font-family:'Tajawal',sans-serif;
+    font-weight:900;
+    font-size:26px;
+    letter-spacing:0.5px;
+    color:var(--brass-2);
+  }
+  .brand-sub{
+    font-size:13px;
+    color:#B8BFC9;
+    margin-top:2px;
+  }
+  nav.tabs{
+    max-width:960px;
+    margin:18px auto 0;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+  }
+  nav.tabs button{
+    background:transparent;
+    border:1px solid var(--line-dark);
+    color:#C9CFD8;
+    padding:9px 16px;
+    border-radius:999px;
+    font-family:'Cairo',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  nav.tabs button.active{
+    background:var(--brass);
+    border-color:var(--brass);
+    color:var(--ink);
+  }
+  nav.tabs button:hover:not(.active){
+    border-color:var(--brass);
+    color:var(--brass-2);
+  }
+
+  main{
+    max-width:960px;
+    margin:0 auto;
+    padding:28px 20px 80px;
+  }
+
+  .hero{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:34px 26px;
+    background:var(--ink-2);
+    color:var(--paper);
+    border-radius:4px;
+    margin-bottom:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 85% -10%, rgba(198,161,91,.18), transparent 55%);
+  }
+  .hero h1{
+    font-size:clamp(26px,4vw,38px);
+    font-weight:900;
+    color:#fff;
+    position:relative;
+    max-width:520px;
+  }
+  .hero p{
+    color:#C9CFD8;
+    max-width:480px;
+    position:relative;
+    font-size:15px;
+  }
+  .hero .cta{
+    margin-top:10px;
+    position:relative;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius:3px;
+    padding:11px 20px;
+    font-family:'Cairo',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    cursor:pointer;
+    transition:transform .12s, opacity .12s;
+  }
+  .btn:active{ transform:scale(.97); }
+  .btn-brass{ background:var(--brass); color:var(--ink); }
+  .btn-brass:hover{ background:var(--brass-2); }
+  .btn-outline{ background:transparent; border:1.5px solid var(--ink); color:var(--ink); }
+  .btn-outline:hover{ background:var(--ink); color:var(--paper); }
+  .btn-outline-light{ background:transparent; border:1.5px solid var(--paper); color:var(--paper); }
+  .btn-danger{ background:transparent; border:1.5px solid var(--bad); color:var(--bad); }
+  .btn-danger:hover{ background:var(--bad); color:#fff; }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-sm{ padding:7px 14px; font-size:13px; }
+  .btn-block{ width:100%; justify-content:center; }
+
+  section.block{ margin-bottom:34px; }
+  .block-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+  }
+  .block-head h2{ font-size:21px; font-weight:800; }
+  .block-head span.count{ color:var(--text-soft); font-size:13px; }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:14px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px;
+    position:relative;
+  }
+  .card h3{ font-size:16px; font-weight:800; margin-bottom:4px; }
+  .card .price{
+    font-family:'Tajawal',sans-serif;
+    font-weight:800;
+    color:var(--burgundy);
+    font-size:19px;
+    margin-top:10px;
+  }
+  .card .meta{ color:var(--text-soft); font-size:13px; }
+  .card .tagline{ font-size:13.5px; color:var(--text-soft); margin-top:6px; }
+
+  .barber-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .avatar{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--ink);
+    color:var(--brass-2);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Tajawal',sans-serif; font-weight:800; font-size:18px;
+    flex-shrink:0;
+  }
+
+  /* Booking flow */
+  .steps{
+    display:flex;
+    gap:6px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .step-pill{
+    display:flex; align-items:center; gap:7px;
+    padding:6px 12px 6px 6px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:13px;
+    color:var(--text-soft);
+    background:#fff;
+  }
+  .step-pill.active{ border-color:var(--brass); color:var(--ink); }
+  .step-pill.done{ border-color:var(--good); color:var(--good); }
+  .step-num{
+    width:20px; height:20px; border-radius:50%;
+    background:var(--paper-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; font-weight:700;
+  }
+  .step-pill.active .step-num{ background:var(--brass); color:var(--ink); }
+  .step-pill.done .step-num{ background:var(--good); color:#fff; }
+
+  .pick-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:10px;
+  }
+  .pick-item{
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:4px;
+    padding:12px;
+    cursor:pointer;
+    text-align:right;
+    transition:border-color .12s, background .12s;
+  }
+  .pick-item:hover{ border-color:var(--brass); }
+  .pick-item.selected{ border-color:var(--brass); background:#FBF6EA; }
+  .pick-item h4{ font-size:14.5px; font-weight:700; margin:0 0 3px; }
+  .pick-item .sub{ font-size:12.5px; color:var(--text-soft); }
+
+  .day-scroll{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:6px;
+  }
+  .day-chip{
+    flex-shrink:0;
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:6px;
+    padding:10px 14px;
+    text-align:center;
+    cursor:pointer;
+    min-width:66px;
+  }
+  .day-chip .dname{ font-size:12px; color:var(--text-soft); }
+  .day-chip .dnum{ font-family:'Tajawal',sans-serif; font-weight:800; font-size:17px; }
+  .day-chip.selected{ border-color:var(--brass); background:#FBF6EA; }
+
+  .slot-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(84px,1fr));
+    gap:8px;
+    margin-top:14px;
+  }
+  .slot{
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:4px;
+    padding:9px 4px;
+    text-align:center;
+    font-size:13.5px;
+    cursor:pointer;
+    font-family:'Cairo',sans-serif;
+    font-weight:600;
+  }
+  .slot:hover{ border-color:var(--brass); }
+  .slot.selected{ background:var(--ink); border-color:var(--ink); color:var(--brass-2); }
+  .slot.taken{ opacity:.35; text-decoration:line-through; cursor:not-allowed; background:var(--paper-2); }
+
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:13.5px; font-weight:700; margin-bottom:6px; }
+  .field input, .field select, .field textarea{
+    width:100%;
+    padding:11px 12px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    font-family:'Cairo',sans-serif;
+    font-size:14.5px;
+    background:#fff;
+    color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:2px solid var(--brass);
+    outline-offset:1px;
+    border-color:var(--brass);
+  }
+
+  .summary-box{
+    background:var(--ink-2);
+    color:var(--paper);
+    border-radius:4px;
+    padding:18px;
+    margin-bottom:18px;
+  }
+  .summary-box .row{
+    display:flex; justify-content:space-between;
+    padding:6px 0;
+    font-size:14px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .summary-box .row:last-child{ border-bottom:none; }
+  .summary-box .row b{ color:var(--brass-2); font-weight:700; }
+
+  .empty{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-soft);
+    border:1.5px dashed var(--line);
+    border-radius:6px;
+    font-size:14.5px;
+  }
+
+  .booking-row{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .booking-info b{ display:block; font-size:15px; margin-bottom:3px; }
+  .booking-info .meta{ font-size:13px; color:var(--text-soft); }
+  .status{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .status-confirmed{ background:#E6EFE9; color:var(--good); }
+  .status-cancelled{ background:#F3E2E2; color:var(--bad); }
+  .status-done{ background:var(--paper-2); color:var(--text-soft); }
+
+  .lookup-bar{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .lookup-bar input{ flex:1; }
+
+  .admin-gate{
+    max-width:340px;
+    margin:60px auto;
+    text-align:center;
+  }
+  .admin-gate .avatar{ margin:0 auto 14px; width:60px; height:60px; font-size:22px; }
+
+  .admin-tabs{ display:flex; gap:8px; margin-bottom:22px; flex-wrap:wrap; }
+  .admin-tabs button{
+    background:#fff; border:1px solid var(--line); border-radius:4px;
+    padding:8px 14px; font-family:'Cairo',sans-serif; font-weight:700; font-size:13.5px;
+    cursor:pointer; color:var(--ink);
+  }
+  .admin-tabs button.active{ background:var(--ink); color:var(--brass-2); border-color:var(--ink); }
+
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:26px; }
+  .stat{ background:#fff; border:1px solid var(--line); border-radius:4px; padding:16px; }
+  .stat .num{ font-family:'Tajawal',sans-serif; font-weight:900; font-size:26px; color:var(--burgundy); }
+  .stat .lbl{ font-size:12.5px; color:var(--text-soft); margin-top:2px; }
+
+  table.admin-table{ width:100%; border-collapse:collapse; background:#fff; }
+  table.admin-table th, table.admin-table td{
+    padding:10px 12px; border-bottom:1px solid var(--line); font-size:13.5px; text-align:right;
+  }
+  table.admin-table th{ background:var(--paper-2); font-weight:700; }
+  .table-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:4px; }
+
+  .toast{
+    position:fixed;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--ink);
+    color:var(--paper);
+    padding:14px 22px;
+    border-radius:5px;
+    font-size:14px;
+    font-weight:600;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s, transform .2s;
+    z-index:50;
+    border-inline-start:4px solid var(--brass);
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .row-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  .inline-form{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:18px; background:#fff; border:1px solid var(--line); padding:14px; border-radius:4px; }
+  .inline-form .field{ margin-bottom:0; flex:1; min-width:120px; }
+  .footer-note{ text-align:center; font-size:12px; color:var(--text-soft); margin-top:10px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div>
+      <div class="brand-name">صالون الأصالة</div>
+      <div class="brand-sub">حلاقة رجالية تقليدية بلمسة عصرية</div>
+    </div>
+  </div>
+  <nav class="tabs" id="navTabs">
+    <button data-view="home">الرئيسية</button>
+    <button data-view="book">حجز موعد</button>
+    <button data-view="mybookings">حجوزاتي</button>
+    <button data-view="admin">لوحة التحكم</button>
+  </nav>
+</header>
+<div class="stripe"></div>
+
+<main id="app"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- storage helpers ---------------- */
+async function getData(key, fallback){
+  try{
+    const r = await window.storage.get(key, true);
+    return r ? JSON.parse(r.value) : fallback;
+  }catch(e){ return fallback; }
+}
+async function setData(key, value){
+  try{ await window.storage.set(key, JSON.stringify(value), true); }
+  catch(e){ console.error('storage set failed', e); }
+}
+
+const DEFAULT_SERVICES = [
+  {id:'s1', name:'قص شعر كلاسيكي', price:60, duration:30, tagline:'قصة أنيقة بالمقص والماكينة'},
+  {id:'s2', name:'حلاقة ذقن وتحديد', price:40, duration:20, tagline:'تشذيب دقيق مع منشفة ساخنة'},
+  {id:'s3', name:'قص + ذقن', price:90, duration:45, tagline:'الباقة الكاملة لإطلالة متكاملة'},
+  {id:'s4', name:'صبغة شعر', price:120, duration:60, tagline:'تغطية الشيب أو تغيير اللون'},
+  {id:'s5', name:'عناية بالبشرة', price:70, duration:30, tagline:'تنظيف وترطيب للوجه'}
+];
+const DEFAULT_BARBERS = [
+  {id:'b1', name:'أحمد كريم', specialty:'قصات كلاسيكية وفيد', start:10, end:20},
+  {id:'b2', name:'يوسف صلاح', specialty:'تحديد الذقن والتصفيف', start:11, end:22},
+  {id:'b3', name:'محمد رامي', specialty:'الصبغة والعناية بالبشرة', start:10, end:18}
+];
+
+let STATE = {
+  view: 'home',
+  services: [],
+  barbers: [],
+  bookings: [],
+  isAdmin: false,
+  adminTab: 'bookings',
+  booking: { serviceId:null, barberId:null, date:null, time:null },
+};
+
+function initial(){ return JSON.parse(JSON.stringify(STATE.booking)); }
+
+/* ---------------- boot ---------------- */
+async function boot(){
+  let services = await getData('shop:services', null);
+  if(!services){ services = DEFAULT_SERVICES; await setData('shop:services', services); }
+  let barbers = await getData('shop:barbers', null);
+  if(!barbers){ barbers = DEFAULT_BARBERS; await setData('shop:barbers', barbers); }
+  let bookings = await getData('shop:bookings', []);
+  STATE.services = services;
+  STATE.barbers = barbers;
+  STATE.bookings = bookings;
+  render();
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function setView(v){
+  STATE.view = v;
+  if(v === 'book') STATE.booking = initial();
+  document.querySelectorAll('#navTabs button').forEach(b=>b.classList.toggle('active', b.dataset.view===v));
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.getElementById('navTabs').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-view]');
+  if(b) setView(b.dataset.view);
+});
+
+/* ---------------- render dispatch ---------------- */
+function render(){
+  const app = document.getElementById('app');
+  document.querySelectorAll('#navTabs button').forEach(b=>b.classList.toggle('active', b.dataset.view===STATE.view));
+  if(STATE.view==='home') app.innerHTML = viewHome();
+  else if(STATE.view==='book') app.innerHTML = viewBook();
+  else if(STATE.view==='mybookings') app.innerHTML = viewMyBookings();
+  else if(STATE.view==='admin') app.innerHTML = STATE.isAdmin ? viewAdmin() : viewAdminGate();
+  bindDynamic();
+}
+
+/* ---------------- HOME ---------------- */
+function viewHome(){
+  const services = STATE.services.map(s=>`
+    <div class="card">
+      <h3>${esc(s.name)}</h3>
+      <div class="tagline">${esc(s.tagline||'')}</div>
+      <div class="meta">${s.duration} دقيقة</div>
+      <div class="price">${s.price} ر.س</div>
+    </div>`).join('');
+  const barbers = STATE.barbers.map(b=>`
+    <div class="card barber-card">
+      <div class="avatar">${esc(initials(b.name))}</div>
+      <div>
+        <h3>${esc(b.name)}</h3>
+        <div class="meta">${esc(b.specialty||'')}</div>
+        <div class="meta">${b.start}:00 — ${b.end}:00</div>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="hero">
+      <h1>مظهر أنيق يبدأ من هنا</h1>
+      <p>احجز موعدك مع أمهر الحلاقين في دقائق. اختر الخدمة، الحلاق، والوقت المناسب لك.</p>
+      <div class="cta">
+        <button class="btn btn-brass" data-goto="book">احجز موعدك الآن</button>
+      </div>
+    </div>
+
+    <section class="block">
+      <div class="block-head"><h2>خدماتنا</h2><span class="count">${STATE.services.length} خدمة</span></div>
+      <div class="grid">${services || '<div class="empty">لا توجد خدمات بعد</div>'}</div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><h2>فريق الحلاقين</h2><span class="count">${STATE.barbers.length} حلاق</span></div>
+      <div class="grid">${barbers || '<div class="empty">لا يوجد حلاقون بعد</div>'}</div>
+    </section>
+  `;
+}
+
+/* ---------------- BOOK ---------------- */
+function stepStatus(n){
+  const b = STATE.booking;
+  const doneMap = { 1: !!b.serviceId, 2: !!b.barberId, 3: !!b.date, 4: !!b.time };
+  const order = [1,2,3,4];
+  const currentIdx = order.findIndex(i=>!doneMap[i]);
+  const current = currentIdx===-1 ? 5 : order[currentIdx];
+  if(doneMap[n]) return 'done';
+  if(n===current) return 'active';
+  return '';
+}
+
+function viewBook(){
+  const b = STATE.booking;
+  const steps = `
+    <div class="steps">
+      <div class="step-pill ${stepStatus(1)}"><span class="step-num">1</span>الخدمة</div>
+      <div class="step-pill ${stepStatus(2)}"><span class="step-num">2</span>الحلاق</div>
+      <div class="step-pill ${stepStatus(3)}"><span class="step-num">3</span>التاريخ</div>
+      <div class="step-pill ${stepStatus(4)}"><span class="step-num">4</span>الوقت</div>
+      <div class="step-pill ${b.time ? 'active':''}"><span class="step-num">5</span>التأكيد</div>
+    </div>`;
+
+  let body = '';
+
+  // Step 1: service
+  body += `
+    <div class="block">
+      <div class="block-head"><h2>اختر الخدمة</h2></div>
+      <div class="pick-grid">
+        ${STATE.services.map(s=>`
+          <div class="pick-item ${b.serviceId===s.id?'selected':''}" data-pick="service" data-id="${s.id}">
+            <h4>${esc(s.name)}</h4>
+            <div class="sub">${s.duration} د · ${s.price} ر.س</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  if(b.serviceId){
+    body += `
+      <div class="block">
+        <div class="block-head"><h2>اختر الحلاق</h2></div>
+        <div class="pick-grid">
+          ${STATE.barbers.map(bb=>`
+            <div class="pick-item ${b.barberId===bb.id?'selected':''}" data-pick="barber" data-id="${bb.id}">
+              <h4>${esc(bb.name)}</h4>
+              <div class="sub">${esc(bb.specialty||'')}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  if(b.serviceId && b.barberId){
+    const days = nextDays(14);
+    body += `
+      <div class="block">
+        <div class="block-head"><h2>اختر اليوم</h2></div>
+        <div class="day-scroll">
+          ${days.map(d=>`
+            <div class="day-chip ${b.date===d.iso?'selected':''}" data-pick="date" data-id="${d.iso}">
+              <div class="dname">${d.dayName}</div>
+              <div class="dnum">${d.dayNum}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  if(b.serviceId && b.barberId && b.date){
+    const slots = availableSlots(b.barberId, b.date);
+    body += `
+      <div class="block">
+        <div class="block-head"><h2>اختر الوقت</h2></div>
+        ${slots.length ? `<div class="slot-grid">
+          ${slots.map(sl=>`
+            <div class="slot ${sl.taken?'taken':''} ${b.time===sl.time?'selected':''}" ${sl.taken?'':`data-pick="time" data-id="${sl.time}"`}>
+              ${sl.time}
+            </div>`).join('')}
+        </div>` : `<div class="empty">لا توجد أوقات متاحة في هذا اليوم، جرّب يوماً آخر</div>`}
+      </div>`;
+  }
+
+  if(b.serviceId && b.barberId && b.date && b.time){
+    const svc = STATE.services.find(s=>s.id===b.serviceId);
+    const brb = STATE.barbers.find(x=>x.id===b.barberId);
+    body += `
+      <div class="block">
+        <div class="block-head"><h2>بياناتك</h2></div>
+        <div class="summary-box">
+          <div class="row"><span>الخدمة</span><b>${esc(svc.name)}</b></div>
+          <div class="row"><span>الحلاق</span><b>${esc(brb.name)}</b></div>
+          <div class="row"><span>التاريخ</span><b>${formatDate(b.date)}</b></div>
+          <div class="row"><span>الوقت</span><b>${b.time}</b></div>
+          <div class="row"><span>السعر</span><b>${svc.price} ر.س</b></div>
+        </div>
+        <div class="field">
+          <label for="custName">الاسم الكامل</label>
+          <input id="custName" placeholder="مثال: خالد العتيبي">
+        </div>
+        <div class="field">
+          <label for="custPhone">رقم الجوال</label>
+          <input id="custPhone" placeholder="05xxxxxxxx">
+        </div>
+        <div class="field">
+          <label for="custNote">ملاحظات (اختياري)</label>
+          <textarea id="custNote" rows="2" placeholder="أي طلب خاص؟"></textarea>
+        </div>
+        <button class="btn btn-brass btn-block" id="confirmBookingBtn">تأكيد الحجز</button>
+      </div>`;
+  }
+
+  return steps + body;
+}
+
+function nextDays(n){
+  const names = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const out = [];
+  const today = new Date();
+  for(let i=0;i<n;i++){
+    const d = new Date(today);
+    d.setDate(today.getDate()+i);
+    out.push({
+      iso: d.toISOString().slice(0,10),
+      dayName: names[d.getDay()],
+      dayNum: d.getDate()
+    });
+  }
+  return out;
+}
+function formatDate(iso){
+  const names = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const d = new Date(iso+'T00:00:00');
+  return `${names[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}`;
+}
+
+function availableSlots(barberId, dateIso){
+  const barber = STATE.barbers.find(b=>b.id===barberId);
+  if(!barber) return [];
+  const slots = [];
+  const now = new Date();
+  const isToday = dateIso === now.toISOString().slice(0,10);
+  for(let h=barber.start; h<barber.end; h++){
+    for(let m=0; m<60; m+=30){
+      const time = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      if(isToday){
+        const slotDate = new Date(dateIso+'T'+time+':00');
+        if(slotDate.getTime() < now.getTime()) continue;
+      }
+      const taken = STATE.bookings.some(bk=>
+        bk.barberId===barberId && bk.date===dateIso && bk.time===time && bk.status!=='ملغى'
+      );
+      slots.push({time, taken});
+    }
+  }
+  return slots;
+}
+
+/* ---------------- MY BOOKINGS ---------------- */
+let searchPhone = '';
+function viewMyBookings(){
+  const results = searchPhone ? STATE.bookings.filter(b=>b.phone.includes(searchPhone)) : [];
+  return `
+    <div class="block">
+      <div class="block-head"><h2>حجوزاتي</h2></div>
+      <div class="lookup-bar">
+        <input id="phoneSearch" placeholder="أدخل رقم جوالك للبحث عن حجوزاتك" value="${esc(searchPhone)}">
+        <button class="btn btn-outline" id="searchBtn">بحث</button>
+      </div>
+      ${searchPhone ? (results.length ? results.sort((a,b)=>b.createdAt-a.createdAt).map(bookingRow).join('') : `<div class="empty">لا توجد حجوزات بهذا الرقم</div>`) : `<div class="empty">أدخل رقم جوالك لعرض حجوزاتك وإدارتها</div>`}
+    </div>`;
+}
+
+function bookingRow(bk){
+  const svc = STATE.services.find(s=>s.id===bk.serviceId);
+  const brb = STATE.barbers.find(b=>b.id===bk.barberId);
+  const statusClass = bk.status==='ملغى' ? 'status-cancelled' : bk.status==='مكتمل' ? 'status-done' : 'status-confirmed';
+  return `
+    <div class="booking-row">
+      <div class="booking-info">
+        <b>${esc(svc?svc.name:'خدمة محذوفة')} — ${esc(brb?brb.name:'حلاق محذوف')}</b>
+        <div class="meta">${formatDate(bk.date)} · ${bk.time} · ${esc(bk.customerName)}</div>
+      </div>
+      <div class="row-actions">
+        <span class="status ${statusClass}">${bk.status}</span>
+        ${bk.status==='مؤكد' ? `<button class="btn btn-sm btn-danger" data-cancel="${bk.id}">إلغاء</button>` : ''}
+      </div>
+    </div>`;
+}
+
+/* ---------------- ADMIN ---------------- */
+function viewAdminGate(){
+  return `
+    <div class="admin-gate">
+      <div class="avatar">✂</div>
+      <h2 style="margin-bottom:8px;">دخول لوحة التحكم</h2>
+      <p style="color:var(--text-soft); font-size:13.5px; margin-bottom:18px;">هذه المنطقة مخصصة لإدارة الصالون فقط</p>
+      <div class="field"><input type="password" id="adminPass" placeholder="كلمة المرور"></div>
+      <button class="btn btn-brass btn-block" id="adminLoginBtn">دخول</button>
+      <p class="footer-note">كلمة المرور الافتراضية: admin123</p>
+    </div>`;
+}
+
+function viewAdmin(){
+  const total = STATE.bookings.length;
+  const confirmed = STATE.bookings.filter(b=>b.status==='مؤكد').length;
+  const cancelled = STATE.bookings.filter(b=>b.status==='ملغى').length;
+  const revenue = STATE.bookings.filter(b=>b.status!=='ملغى').reduce((sum,b)=>{
+    const svc = STATE.services.find(s=>s.id===b.serviceId);
+    return sum + (svc?svc.price:0);
+  },0);
+
+  let content = '';
+  if(STATE.adminTab==='bookings'){
+    const rows = [...STATE.bookings].sort((a,b)=>b.createdAt-a.createdAt);
+    content = `
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>العميل</th><th>الجوال</th><th>الخدمة</th><th>الحلاق</th><th>الموعد</th><th>الحالة</th><th></th></tr></thead>
+          <tbody>
+            ${rows.length ? rows.map(bk=>{
+              const svc = STATE.services.find(s=>s.id===bk.serviceId);
+              const brb = STATE.barbers.find(b=>b.id===bk.barberId);
+              return `<tr>
+                <td>${esc(bk.customerName)}</td>
+                <td>${esc(bk.phone)}</td>
+                <td>${esc(svc?svc.name:'—')}</td>
+                <td>${esc(brb?brb.name:'—')}</td>
+                <td>${formatDate(bk.date)} ${bk.time}</td>
+                <td><span class="status ${bk.status==='ملغى'?'status-cancelled':bk.status==='مكتمل'?'status-done':'status-confirmed'}">${bk.status}</span></td>
+                <td>
+                  <div class="row-actions">
+                    ${bk.status==='مؤكد' ? `<button class="btn btn-sm btn-outline" data-complete="${bk.id}">إتمام</button>` : ''}
+                    ${bk.status==='مؤكد' ? `<button class="btn btn-sm btn-danger" data-admincancel="${bk.id}">إلغاء</button>` : ''}
+                  </div>
+                </td>
+              </tr>`;
+            }).join('') : `<tr><td colspan="7" style="text-align:center;color:var(--text-soft);padding:24px;">لا توجد حجوزات بعد</td></tr>`}
+          </tbody>
+        </table>
+      </div>`;
+  } else if(STATE.adminTab==='services'){
+    content = `
+      <div class="inline-form">
+        <div class="field"><label>اسم الخدمة</label><input id="newSvcName"></div>
+        <div class="field" style="max-width:110px;"><label>السعر</label><input id="newSvcPrice" type="number"></div>
+        <div class="field" style="max-width:110px;"><label>المدة (د)</label><input id="newSvcDuration" type="number"></div>
+        <button class="btn btn-brass" id="addServiceBtn">إضافة</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>الاسم</th><th>السعر</th><th>المدة</th><th></th></tr></thead>
+          <tbody>
+            ${STATE.services.map(s=>`
+              <tr>
+                <td>${esc(s.name)}</td><td>${s.price} ر.س</td><td>${s.duration} د</td>
+                <td><button class="btn btn-sm btn-danger" data-delsvc="${s.id}">حذف</button></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  } else if(STATE.adminTab==='barbers'){
+    content = `
+      <div class="inline-form">
+        <div class="field"><label>اسم الحلاق</label><input id="newBrbName"></div>
+        <div class="field"><label>التخصص</label><input id="newBrbSpec"></div>
+        <div class="field" style="max-width:90px;"><label>من (ساعة)</label><input id="newBrbStart" type="number" value="10"></div>
+        <div class="field" style="max-width:90px;"><label>إلى (ساعة)</label><input id="newBrbEnd" type="number" value="20"></div>
+        <button class="btn btn-brass" id="addBarberBtn">إضافة</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>الاسم</th><th>التخصص</th><th>الدوام</th><th></th></tr></thead>
+          <tbody>
+            ${STATE.barbers.map(b=>`
+              <tr>
+                <td>${esc(b.name)}</td><td>${esc(b.specialty||'')}</td><td>${b.start}:00–${b.end}:00</td>
+                <td><button class="btn btn-sm btn-danger" data-delbrb="${b.id}">حذف</button></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  return `
+    <div class="block-head" style="border-bottom:none; margin-bottom:18px;">
+      <h2>لوحة التحكم</h2>
+      <button class="btn btn-sm btn-outline" id="logoutBtn">تسجيل الخروج</button>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">${total}</div><div class="lbl">إجمالي الحجوزات</div></div>
+      <div class="stat"><div class="num">${confirmed}</div><div class="lbl">حجوزات مؤكدة</div></div>
+      <div class="stat"><div class="num">${cancelled}</div><div class="lbl">حجوزات ملغاة</div></div>
+      <div class="stat"><div class="num">${revenue}</div><div class="lbl">إيراد متوقع (ر.س)</div></div>
+    </div>
+    <div class="admin-tabs">
+      <button class="${STATE.adminTab==='bookings'?'active':''}" data-atab="bookings">الحجوزات</button>
+      <button class="${STATE.adminTab==='services'?'active':''}" data-atab="services">الخدمات</button>
+      <button class="${STATE.adminTab==='barbers'?'active':''}" data-atab="barbers">الحلاقون</button>
+    </div>
+    ${content}
+  `;
+}
+
+/* ---------------- utils ---------------- */
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function initials(name){
+  const parts = String(name).trim().split(/\s+/);
+  return parts.slice(0,2).map(p=>p[0]).join('');
+}
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+
+/* ---------------- events ---------------- */
+function bindDynamic(){
+  const app = document.getElementById('app');
+
+  app.querySelectorAll('[data-goto]').forEach(el=>{
+    el.addEventListener('click', ()=>setView(el.dataset.goto));
+  });
+
+  app.querySelectorAll('[data-pick]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const type = el.dataset.pick, id = el.dataset.id;
+      if(type==='service'){ STATE.booking.serviceId=id; STATE.booking.barberId=null; STATE.booking.date=null; STATE.booking.time=null; }
+      if(type==='barber'){ STATE.booking.barberId=id; STATE.booking.date=null; STATE.booking.time=null; }
+      if(type==='date'){ STATE.booking.date=id; STATE.booking.time=null; }
+      if(type==='time'){ STATE.booking.time=id; }
+      render();
+    });
+  });
+
+  const confirmBtn = document.getElementById('confirmBookingBtn');
+  if(confirmBtn){
+    confirmBtn.addEventListener('click', async ()=>{
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const note = document.getElementById('custNote').value.trim();
+      if(!name || !phone){ toast('يرجى إدخال الاسم ورقم الجوال'); return; }
+      const b = STATE.booking;
+      const newBooking = {
+        id: uid(),
+        serviceId: b.serviceId,
+        barberId: b.barberId,
+        date: b.date,
+        time: b.time,
+        customerName: name,
+        phone: phone,
+        note: note,
+        status: 'مؤكد',
+        createdAt: Date.now()
+      };
+      STATE.bookings.push(newBooking);
+      await setData('shop:bookings', STATE.bookings);
+      toast('تم تأكيد حجزك بنجاح ✓');
+      searchPhone = phone;
+      setView('mybookings');
+    });
+  }
+
+  const searchBtn = document.getElementById('searchBtn');
+  const phoneInput = document.getElementById('phoneSearch');
+  if(searchBtn){
+    searchBtn.addEventListener('click', ()=>{
+      searchPhone = phoneInput.value.trim();
+      render();
+    });
+  }
+  if(phoneInput){
+    phoneInput.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){ searchPhone = phoneInput.value.trim(); render(); }
+    });
+  }
+
+  app.querySelectorAll('[data-cancel]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const bk = STATE.bookings.find(b=>b.id===el.dataset.cancel);
+      if(bk){ bk.status='ملغى'; await setData('shop:bookings', STATE.bookings); toast('تم إلغاء الحجز'); render(); }
+    });
+  });
+
+  const adminLoginBtn = document.getElementById('adminLoginBtn');
+  if(adminLoginBtn){
+    const doLogin = ()=>{
+      const pass = document.getElementById('adminPass').value;
+      if(pass === 'admin123'){ STATE.isAdmin = true; render(); }
+      else toast('كلمة المرور غير صحيحة');
+    };
+    adminLoginBtn.addEventListener('click', doLogin);
+    document.getElementById('adminPass').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+  }
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  if(logoutBtn) logoutBtn.addEventListener('click', ()=>{ STATE.isAdmin=false; render(); });
+
+  app.querySelectorAll('[data-atab]').forEach(el=>{
+    el.addEventListener('click', ()=>{ STATE.adminTab = el.dataset.atab; render(); });
+  });
+
+  app.querySelectorAll('[data-complete]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const bk = STATE.bookings.find(b=>b.id===el.dataset.complete);
+      if(bk){ bk.status='مكتمل'; await setData('shop:bookings', STATE.bookings); render(); }
+    });
+  });
+  app.querySelectorAll('[data-admincancel]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const bk = STATE.bookings.find(b=>b.id===el.dataset.admincancel);
+      if(bk){ bk.status='ملغى'; await setData('shop:bookings', STATE.bookings); render(); }
+    });
+  });
+
+  const addServiceBtn = document.getElementById('addServiceBtn');
+  if(addServiceBtn){
+    addServiceBtn.addEventListener('click', async ()=>{
+      const name = document.getElementById('newSvcName').value.trim();
+      const price = parseInt(document.getElementById('newSvcPrice').value);
+      const duration = parseInt(document.getElementById('newSvcDuration').value);
+      if(!name || !price || !duration){ toast('يرجى تعبئة كل الحقول'); return; }
+      STATE.services.push({id:uid(), name, price, duration, tagline:''});
+      await setData('shop:services', STATE.services);
+      toast('تمت إضافة الخدمة');
+      render();
+    });
+  }
+  app.querySelectorAll('[data-delsvc]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      STATE.services = STATE.services.filter(s=>s.id!==el.dataset.delsvc);
+      await setData('shop:services', STATE.services);
+      render();
+    });
+  });
+
+  const addBarberBtn = document.getElementById('addBarberBtn');
+  if(addBarberBtn){
+    addBarberBtn.addEventListener('click', async ()=>{
+      const name = document.getElementById('newBrbName').value.trim();
+      const specialty = document.getElementById('newBrbSpec').value.trim();
+      const start = parseInt(document.getElementById('newBrbStart').value);
+      const end = parseInt(document.getElementById('newBrbEnd').value);
+      if(!name || isNaN(start) || isNaN(end)){ toast('يرجى تعبئة كل الحقول'); return; }
+      STATE.barbers.push({id:uid(), name, specialty, start, end});
+      await setData('shop:barbers', STATE.barbers);
+      toast('تمت إضافة الحلاق');
+      render();
+    });
+  }
+  app.querySelectorAll('[data-delbrb]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      STATE.barbers = STATE.barbers.filter(b=>b.id!==el.dataset.delbrb);
+      await setData('shop:barbers', STATE.barbers);
+      render();
+    });
+  });
+}
+
+boot();
+</script>
+</body>
+</html>
